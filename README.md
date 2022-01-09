@@ -1,5 +1,5 @@
 
-# Lightening Strike RESTful API using Go and Gin
+# Lightning Strike RESTful API using Go and Gin
 Based on [https://go.dev/doc/tutorial/web-service-gin](https://go.dev/doc/tutorial/web-service-gin)
 
 ## Get dependencies
