@@ -1,6 +1,7 @@
 
 # Lightning Strike RESTful API using Go and Gin
 Based on [https://go.dev/doc/tutorial/web-service-gin](https://go.dev/doc/tutorial/web-service-gin)
+And [Build a REST API with Golang from scratch: PostgreSQL with Gorm and Gin Web Framework](https://dc1888.medium.com/build-a-rest-api-with-golang-from-scratch-postgresql-with-gorm-and-gin-web-framework-3d3f95ccf2e7)
 
 ## Get dependencies
 `go get .`

@@ -3,3 +3,6 @@ go.sum
 
 # vscode
 .vscode
+
+# env
+database.env
