@@ -5,7 +5,12 @@ import (
 	_ "go-lightning/docs"
 	"go-lightning/models"
 
+	"fmt"
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -21,7 +26,21 @@ func main() {
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	db := models.SetupModels()
+	err := godotenv.Load("database.env")
+	if err != nil {
+		log.Fatalf("Some error occured. Err: %s", err)
+	}
+
+	pgUser := os.Getenv("PG_USER")
+	fmt.Println(pgUser)
+
+	pgPassword := os.Getenv("PG_PASSWORD")
+	fmt.Println(pgPassword)
+
+	pgDB := os.Getenv("PG_DB")
+	fmt.Println(pgDB)
+
+	db := models.SetupModels(pgUser, pgPassword, pgDB)
 
 	// Provide db variable to controllers
 	r.Use(func(c *gin.Context) {
@@ -38,6 +57,7 @@ func main() {
 			strikes.POST("", controllers.CreateStrike)
 			strikes.PATCH(":id", controllers.UpdateStrike)
 			strikes.DELETE(":id", controllers.DeleteStrike)
+			strikes.GET("/country-count", controllers.FindStrikesCountryCount)
 
 		}
 	}

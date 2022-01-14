@@ -63,7 +63,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "lightning strike"
+                    "lightning strikes"
                 ],
                 "summary": "Create new lightning strike",
                 "parameters": [
@@ -93,6 +93,38 @@ var doc = `{
                 }
             }
         },
+        "/strikes/country-count": {
+            "get": {
+                "description": "Get count of lightning strikes by country",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "lightning strikes"
+                ],
+                "summary": "Get count of lightning strikes by country",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.LightningStrikeCountry"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
         "/strikes/{id}": {
             "get": {
                 "description": "Get a lightning strike",
@@ -103,7 +135,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "lightning strike"
+                    "lightning strikes"
                 ],
                 "summary": "Get a lightning strike by id",
                 "parameters": [
@@ -139,7 +171,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "lightning strike"
+                    "lightning strikes"
                 ],
                 "summary": "Delete a lightning strike by id",
                 "parameters": [
@@ -175,7 +207,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "lightning strike"
+                    "lightning strikes"
                 ],
                 "summary": "Update a lightning strike by id",
                 "parameters": [
@@ -260,6 +292,17 @@ var doc = `{
                 },
                 "yCoord": {
                     "type": "number"
+                }
+            }
+        },
+        "models.LightningStrikeCountry": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
                 }
             }
         },
