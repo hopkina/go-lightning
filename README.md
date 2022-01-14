@@ -17,6 +17,14 @@ Initiate creation
 Hosted at
 `http://localhost:8080/swagger/index.html`
 
+# dotenv file
+Contains
+```
+PG_USER=<user>
+PG_PASSWORD=<password>
+PG_DB=<database>
+```
+
 ## Run the code
 `go run .`
 
