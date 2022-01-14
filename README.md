@@ -17,7 +17,7 @@ Initiate creation
 Hosted at
 `http://localhost:8080/swagger/index.html`
 
-# dotenv file
+## dotenv file
 Contains
 ```
 PG_USER=<user>
