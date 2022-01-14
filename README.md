@@ -32,4 +32,4 @@ PG_DB=<database>
 `curl http://localhost:8080/api/v1/strikes`
 
 ## Add a lightning strike
-`curl http://localhost:8080/api/v1/strikes --include --header "Content-Type: application/json" --request "POST" --data '{"strikeTime": "2021-11-10T11:00:00Z","xCoord": 52.961441,"yCoord": 1.067521}'`
+`curl http://localhost:8080/api/v1/strikes --include --header "Content-Type: application/json" --request "POST" --data '{"strikeTime": "2021-11-10T11:00:00Z","xCoord": 1.067521,"yCoord": 52.961441}'`

@@ -34,7 +34,7 @@ func FindStrikes(c *gin.Context) {
 // CreateStrike godoc
 // @Summary      Create new lightning strike
 // @Description  Post lightning strike
-// @Tags         lightning strike
+// @Tags         lightning strikes
 // @Accept       json
 // @Produce      json
 // @Param        message  body      models.CreateStrikeInput  true  "Lightning Strike Information"
@@ -62,7 +62,7 @@ func CreateStrike(c *gin.Context) {
 // FindStrike godoc
 // @Summary      Get a lightning strike by id
 // @Description  Get a lightning strike
-// @Tags         lightning strike
+// @Tags         lightning strikes
 // @Accept       json
 // @Produce      json
 // @Param        id path int true "ID"
@@ -85,7 +85,7 @@ func FindStrike(c *gin.Context) {
 // UpdateStrike godoc
 // @Summary      Update a lightning strike by id
 // @Description  Update a lightning strike
-// @Tags         lightning strike
+// @Tags         lightning strikes
 // @Accept       json
 // @Produce      json
 // @Param        id path int true "ID"
@@ -118,7 +118,7 @@ func UpdateStrike(c *gin.Context) {
 // DeleteStrike godoc
 // @Summary      Delete a lightning strike by id
 // @Description  Delete a lightning strike
-// @Tags         lightning strike
+// @Tags         lightning strikes
 // @Accept       json
 // @Produce      json
 // @Param        id path int true "ID"
@@ -138,4 +138,34 @@ func DeleteStrike(c *gin.Context) {
 	db.Delete(&strike)
 
 	c.JSON(http.StatusOK, true)
+}
+
+// FindStrikes godoc
+// @Summary      Get count of lightning strikes by country
+// @Description  Get count of lightning strikes by country
+// @Tags         lightning strikes
+// @Accept       json
+// @Produce      json
+// @Success      200      {array}   models.LightningStrikeCountry
+// @Failure      400      {object}  httputil.HTTPError
+// @Router       /strikes/country-count [get]
+func FindStrikesCountryCount(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+
+	var countries []models.LightningStrikeCountry
+
+	sql := "SELECT count(l.id), c.name AS country " +
+		"FROM lightning_strikes AS l " +
+		"INNER JOIN country AS c " +
+		"ON ST_Intersects(ST_PointOnSurface(ST_SetSRID(ST_Point(l.x_coord, l.y_coord), 4326)), c.geom) " +
+		"GROUP BY c.name"
+
+	db.Raw(sql).Scan(&countries)
+
+	if err := db.Raw(sql).Scan(&countries).Error; err != nil {
+		httputil.NewError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, countries)
 }

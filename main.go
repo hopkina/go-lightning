@@ -57,6 +57,7 @@ func main() {
 			strikes.POST("", controllers.CreateStrike)
 			strikes.PATCH(":id", controllers.UpdateStrike)
 			strikes.DELETE(":id", controllers.DeleteStrike)
+			strikes.GET("/country-count", controllers.FindStrikesCountryCount)
 
 		}
 	}

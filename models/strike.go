@@ -22,3 +22,8 @@ type UpdateStrikeInput struct {
 	XCoord     float64   `json:"xCoord"`
 	YCoord     float64   `json:"yCoord"`
 }
+
+type LightningStrikeCountry struct {
+	Count   string `json:"count"`
+	Country string `json:"country"`
+}

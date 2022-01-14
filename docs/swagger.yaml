@@ -33,6 +33,13 @@ definitions:
       yCoord:
         type: number
     type: object
+  models.LightningStrikeCountry:
+    properties:
+      count:
+        type: string
+      country:
+        type: string
+    type: object
   models.UpdateStrikeInput:
     properties:
       strikeTime:
@@ -94,7 +101,7 @@ paths:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Create new lightning strike
       tags:
-      - lightning strike
+      - lightning strikes
   /strikes/{id}:
     delete:
       consumes:
@@ -119,7 +126,7 @@ paths:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Delete a lightning strike by id
       tags:
-      - lightning strike
+      - lightning strikes
     get:
       consumes:
       - application/json
@@ -143,7 +150,7 @@ paths:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Get a lightning strike by id
       tags:
-      - lightning strike
+      - lightning strikes
     patch:
       consumes:
       - application/json
@@ -173,5 +180,26 @@ paths:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Update a lightning strike by id
       tags:
-      - lightning strike
+      - lightning strikes
+  /strikes/country-count:
+    get:
+      consumes:
+      - application/json
+      description: Get count of lightning strikes by country
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.LightningStrikeCountry'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Get count of lightning strikes by country
+      tags:
+      - lightning strikes
 swagger: "2.0"
