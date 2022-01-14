@@ -1,0 +1,177 @@
+basePath: /api/v1
+definitions:
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  models.CreateStrikeInput:
+    properties:
+      strikeTime:
+        type: string
+      xCoord:
+        type: number
+      yCoord:
+        type: number
+    required:
+    - strikeTime
+    - xCoord
+    - yCoord
+    type: object
+  models.LightningStrike:
+    properties:
+      id:
+        type: string
+      strikeTime:
+        type: string
+      xCoord:
+        type: number
+      yCoord:
+        type: number
+    type: object
+  models.UpdateStrikeInput:
+    properties:
+      strikeTime:
+        type: string
+      xCoord:
+        type: number
+      yCoord:
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Lightning strikes API
+  title: Lightning Strikes API
+  version: "1.0"
+paths:
+  /strikes:
+    get:
+      consumes:
+      - application/json
+      description: Get lightning strikes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.LightningStrike'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Get all lightning strikes
+      tags:
+      - lightning strikes
+    post:
+      consumes:
+      - application/json
+      description: Post lightning strike
+      parameters:
+      - description: Lightning Strike Information
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateStrikeInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LightningStrike'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Create new lightning strike
+      tags:
+      - lightning strike
+  /strikes/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a lightning strike
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Delete a lightning strike by id
+      tags:
+      - lightning strike
+    get:
+      consumes:
+      - application/json
+      description: Get a lightning strike
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LightningStrike'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Get a lightning strike by id
+      tags:
+      - lightning strike
+    patch:
+      consumes:
+      - application/json
+      description: Update a lightning strike
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Lightning Strike Information
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateStrikeInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LightningStrike'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Update a lightning strike by id
+      tags:
+      - lightning strike
+swagger: "2.0"
